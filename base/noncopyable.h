@@ -9,8 +9,8 @@ protected:
     ~noncopyable(){}
 private:
     noncopyable(const noncopyable&);
-    const noncopyable& operator=(const noncopyable&)
-}
+    const noncopyable& operator=(const noncopyable&);
+};
 // 要写一个单例类，就要在类中作如下声明，
 // 把他们的构造函数和析构函数声明为protected
 // 把他们的拷贝构造函数和赋值函数声明为private

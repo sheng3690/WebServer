@@ -12,25 +12,25 @@ class MutexLock:public noncopyable
 public:
     MutexLock()
     {
-        pthread_mutex_init(&mutex,NULL)
+        pthread_mutex_init(&mutex,NULL);
     }
     ~MutexLock()
     {
-        pthread_mutex_lock(&mutex)
-        pthread_mutex_destroy(&mutex)
+        pthread_mutex_lock(&mutex);
+        pthread_mutex_destroy(&mutex);
     }
     void lock()
     {
-        pthread_mutex_lock(&mutex)
+        pthread_mutex_lock(&mutex);
     }
     void unlock()
     {
-        pthread_mutex_unlock(&mutex)
+        pthread_mutex_unlock(&mutex);
     }
 
     // Why return pointer? 
     // Because pthread_cond_wait and pthread_cond_timewait in Condition.h need pointer
-    pthread_mutext_t *get(){
+    pthread_mutex_t *get(){
         return &mutex;
     }
 // friend class regardless of access right
@@ -43,7 +43,7 @@ private:
 class MutexLockGuard: public noncopyable
 {
 public:
-    explicit MutexLockGuard(MutexLock &_mutex):mutex(_mutex):
+    explicit MutexLockGuard(MutexLock &_mutex):
     mutex(_mutex)
     {
         mutex.lock();
@@ -54,7 +54,7 @@ public:
     }
 private:
     MutexLock &mutex;
-}
+};
 
 // MutexLock封装临界区，这是一个简单的资源类，用RAII（资源获取就是初始化）手法封装互斥器的创建与销毁。
 // MutexLock一般是别的class的数据成员
